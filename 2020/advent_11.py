@@ -94,10 +94,10 @@ def part_two(the_input):
             my_col_index = col_index
             # print(row_index, col_index)
             adjacents = []
-            condition_up = my_row_index != 0
-            condition_left = my_col_index != 0
-            condition_down = my_row_index != len(the_input) - 1
-            condition_right = my_col_index != len(my_row) - 1
+            condition_up = my_row_index > 0
+            condition_left = my_col_index > 0
+            condition_down = my_row_index < len(the_input) - 1
+            condition_right = my_col_index < len(my_row) - 1
 
             my_char = the_input[row_index][col_index]
             if my_char == 'L' or my_char == '#':
