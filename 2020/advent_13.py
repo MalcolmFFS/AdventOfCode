@@ -5,9 +5,7 @@ def the_setup():
     with open('input_13.txt') as f_object:
         tmp = f_object.read().split('\n')
 
-    start_time = int(tmp[0])
-    the_input = tmp[1].split(',')
-
+    start_time, the_input = int(tmp[0]), tmp[1].split(',')
     return start_time, the_input
 
 
@@ -36,14 +34,7 @@ def part_two(the_input):
         except ValueError:
             continue
 
-    for index, bus in enumerate(list(remainders.values())):
-        try:
-            next_bus = list(remainders.values())[index + 1]
-        except IndexError:
-            pass
-
-        # this is annoying
-
+    # This is annoying
     return remainders
 
 
