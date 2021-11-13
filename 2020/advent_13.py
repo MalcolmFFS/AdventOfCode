@@ -5,28 +5,19 @@ def the_setup():
     with open('input_13.txt') as f_object:
         tmp = f_object.read().split('\n')
 
-    the_input = list()
-    the_input.append(int(tmp[0]))
-    the_input.append(tmp[1].split(','))
+    start_time = int(tmp[0])
+    the_input = tmp[1].split(',')
 
-    return the_input
+    return start_time, the_input
 
 
-def part_one(the_input):
-    tmp = the_input[1][:]
-    the_input[1] = list()
-    for i in tmp:
-        try:
-            the_input[1].append(int(i))
-        except ValueError:
-            continue
-
-    start_time = the_input[0]
-    buses = the_input[1]
+def part_one(start_time, the_input):
+    buses = [int(i) for i in the_input if i != 'x']
     buses_dict = dict()
 
     for bus in buses:
-        # start_time % bus returns remainder since last departure, subtracting bus and abs() makes it time til next.
+        # start_time % bus returns remainder since last departure
+        # subtracting bus and abs() makes it time til next departure, instead of previous.
         buses_dict[bus] = abs(start_time % bus - bus)
 
     shortest_wait = min(buses_dict, key=buses_dict.get)
@@ -57,6 +48,6 @@ def part_two(the_input):
 
 
 if __name__ == "__main__":
-    my_input = the_setup()
-    print(part_one(my_input[:]))
-    print(part_two(my_input[1][:]))
+    starting_time, my_input = the_setup()
+    print(part_one(starting_time, my_input[:]))
+    print(part_two(my_input[:]))
