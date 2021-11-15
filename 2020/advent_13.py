@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
 
+import math
+
+
 def the_setup():
     with open('input_13.txt') as f_object:
         tmp = f_object.read().split('\n')
@@ -34,8 +37,21 @@ def part_two(the_input):
         except ValueError:
             continue
 
-    # This is annoying
-    return remainders
+    tups = [(key, value) for key, value in remainders.items()]
+
+    for index, i in enumerate(tups):
+        remainder, modulo = i
+        if index == 0:
+            cur_lcm = modulo
+            cur_base = modulo
+        else:
+            while (cur_base + remainder) % modulo != 0:
+                cur_base += cur_lcm
+
+            cur_lcm = math.lcm(cur_lcm, modulo)
+
+    answer = f"The starting time for part_two is {cur_base}."
+    return answer
 
 
 if __name__ == "__main__":
