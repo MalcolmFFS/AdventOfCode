@@ -4,11 +4,14 @@
 # The total of times the measurement sum increased was: 1418.
 
 
-def the_setup():
-    with open('input_01.txt') as f_object:
-        tmp = f_object.read().split('\n')
+# import timeit
 
-    the_input = [int(i) for i in tmp]
+
+def the_setup():
+    the_input = list()
+    with open('input_01.txt') as f_object:
+        for line in f_object:
+            the_input.append(int(line.strip()))
 
     return the_input
 
@@ -47,6 +50,30 @@ def part_two(the_input):
     return increased_count
 
 
+# def part_two_nolan(the_input):
+#     last3 = []
+#     a = b = i = count = 0
+#     for num in the_input:
+#         last3.append(num)
+#         if 2 < i:
+#             last3 = last3[1:]
+#             a = b
+#             b = sum(last3)
+#             if a < b:
+#                 count += 1
+#         else:
+#             b = sum(last3)
+#         i += 1
+#
+#     return count
+
+
+# def wrapper(func, *args, **kwargs):
+#     def wrapped():
+#         return func(*args, **kwargs)
+#     return wrapped
+
+
 sample_input = r"""
 199
 200
@@ -62,8 +89,19 @@ sample_input = r"""
 
 if __name__ == "__main__":
     my_input = the_setup()
+
     # To run against sample input
-    # blah = sample_input.strip().split('\n')
-    # my_input = [int(i) for i in blah]
+    # my_input = [int(i) for i in sample_input.strip().split('\n')]
+
     print(f"The total of times the measurement increased was: {part_one(my_input)}.")
     print(f"The total of times the measurement sum increased was: {part_two(my_input)}.")
+
+    # wrapped_a = wrapper(part_two, my_input)
+    # print(timeit.timeit(wrapped_a, number=10000))
+    #
+    # wrapped_b = wrapper(part_two_nolan, my_input)
+    # print(timeit.timeit(wrapped_b, number=10000))
+
+    # Output of timing mine vs nolan's part two
+    # 4.523794
+    # 5.5383819
