@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# The total of times the measurement increased was: 1374.
+# The total of times the measurement sum increased was: 1418.
+
 
 def the_setup():
     with open('input_01.txt') as f_object:
@@ -22,25 +25,24 @@ def part_one(the_input):
 
 def part_two(the_input):
     increased_count = 0
-    measurement_sums = dict()
+    measurement_sums = list()
     for index, i in enumerate(the_input):
         try:
             next_one = the_input[index + 1]
             next_two = the_input[index + 2]
-            measurement_sums[index] = (i, next_one, next_two)
+            measurement_sums.append(i + next_one + next_two)
         except IndexError:
-            pass
+            break
 
     previous = None
-    for key, measurement_sum in measurement_sums.items():
-        the_sum = sum(measurement_sum)
-        if key == 0:
-            previous = the_sum
+    for measurement_sum in measurement_sums:
+        if previous is None:
+            previous = measurement_sum
         else:
-            if the_sum > previous:
+            if measurement_sum > previous:
                 increased_count += 1
 
-            previous = the_sum
+            previous = measurement_sum
 
     return increased_count
 
