@@ -38,19 +38,7 @@ def part_one(the_input):
 
 
 def part_two(the_input):
-    # To find oxygen generator rating, determine the most common value (0 or 1) in the current bit position,
-    # and keep only numbers with that bit in that position. If 0 and 1 are equally common,
-    # keep values with a 1 in the position being considered.
-
-    # To find CO2 scrubber rating, determine the least common value (0 or 1) in the current bit position,
-    # and keep only numbers with that bit in that position. If 0 and 1 are equally common,
-    # keep values with a 0 in the position being considered.
-
-    # Wrong answer: 15729156
-
-    # O2 Generator rating
     oxygen_input = the_input[:]
-    # while len(oxygen_input) > 1:
     for i in range(len(oxygen_input[0])):
         print(f"Index {i}")
         ones = zeroes = 0
@@ -81,7 +69,6 @@ def part_two(the_input):
                     print(oxygen_input)
 
     co2_input = the_input[:]
-    # while len(co2_input) > 1:
     for i in range(len(the_input[0])):
         print(f"Index {i}")
         ones = zeroes = 0
@@ -134,6 +121,3 @@ if __name__ == "__main__":
 
     # print(f"The  (part one) is: {part_one(my_input[:])}.")
     print(f"The  (part two) is: {part_two(my_input[:])}.")
-
-    # 101110001011
-    # 010010011111

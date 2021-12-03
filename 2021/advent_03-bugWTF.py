@@ -1,7 +1,48 @@
 #!/usr/bin/env python3
 
-# Output:
+# ## Relevant Code - Working
+#         if ones > zeroes:
+#             print(f"Ones beat zeroes, removing zeroes at index {i}.")
+#             print(oxygen_input, len(oxygen_input))
+#             for line in sorted(oxygen_input):
+#                 print(line, line[i])
+#                 if line[i] == '0' and len(oxygen_input) != 1:
+#                     oxygen_input.remove(line)
 #
+# ## Output
+# Index 0
+# Ones beat zeroes, removing zeroes at index 0.
+# ['00100', '11110', '10110', '10111', '10101', '01111', '00111', '11100', '10000', '11001', '00010', '01010'] 12
+# 00010 0
+# 00100 0
+# 00111 0
+# 01010 0
+# 01111 0
+# 10000 1
+# 10101 1
+# 10110 1
+# 10111 1
+# 11001 1
+# 11100 1
+# 11110 1
+# Index 1
+
+# Same code without the `sorted(list)` below, and it can print the full list, and it's len() correctly
+# But for some reason, it can't iterate through the full list
+# Output
+# Index 0
+# Ones beat zeroes, removing zeroes at index 0.
+# ['00100', '11110', '10110', '10111', '10101', '01111', '00111', '11100', '10000', '11001', '00010', '01010'] 12
+# 00100 0
+# 10110 1
+# 10111 1
+# 10101 1
+# 01111 0
+# 11100 1
+# 10000 1
+# 11001 1
+# 00010 0
+# Index 1
 
 
 def the_setup():
@@ -38,19 +79,7 @@ def part_one(the_input):
 
 
 def part_two(the_input):
-    # To find oxygen generator rating, determine the most common value (0 or 1) in the current bit position,
-    # and keep only numbers with that bit in that position. If 0 and 1 are equally common,
-    # keep values with a 1 in the position being considered.
-
-    # To find CO2 scrubber rating, determine the least common value (0 or 1) in the current bit position,
-    # and keep only numbers with that bit in that position. If 0 and 1 are equally common,
-    # keep values with a 0 in the position being considered.
-
-    # Wrong answer: 15729156
-
-    # O2 Generator rating
     oxygen_input = the_input[:]
-    # while len(oxygen_input) > 1:
     for i in range(len(oxygen_input[0])):
         print(f"Index {i}")
         ones = zeroes = 0
@@ -81,7 +110,6 @@ def part_two(the_input):
                     print(oxygen_input)
 
     co2_input = the_input[:]
-    # while len(co2_input) > 1:
     for i in range(len(the_input[0])):
         print(f"Index {i}")
         ones = zeroes = 0
@@ -134,6 +162,3 @@ if __name__ == "__main__":
 
     # print(f"The  (part one) is: {part_one(my_input[:])}.")
     print(f"The  (part two) is: {part_two(my_input[:])}.")
-
-    # 101110001011
-    # 010010011111
