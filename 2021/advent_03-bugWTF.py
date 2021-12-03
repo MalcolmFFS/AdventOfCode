@@ -63,19 +63,19 @@ def part_two(the_input):
         if ones > zeroes:
             print(f"Ones beat zeroes, removing zeroes at index {i}.")
             print(oxygen_input, len(oxygen_input))
-            for line in sorted(oxygen_input):
+            for line in oxygen_input:
                 print(line, line[i])
                 if line[i] == '0' and len(oxygen_input) != 1:
                     oxygen_input.remove(line)
         elif zeroes > ones:
             print(f"Zeroes beat ones, removing ones at index {i}.")
-            for line in sorted(oxygen_input):
+            for line in oxygen_input:
                 if line[i] == '1' and len(oxygen_input) != 1:
                     oxygen_input.remove(line)
                     print(oxygen_input)
         else:
             print(f"Ones tied zeroes, removing zeroes at index {i}.")
-            for line in sorted(oxygen_input):
+            for line in oxygen_input:
                 if line[i] == '0' and len(oxygen_input) != 1:
                     oxygen_input.remove(line)
                     print(oxygen_input)
@@ -93,17 +93,17 @@ def part_two(the_input):
 
         if ones < zeroes:
             print(f"Zeroes beat ones, removing zeroes at index {i}.")
-            for line in sorted(co2_input):
+            for line in co2_input:
                 if line[i] == '0' and len(co2_input) != 1:
                     co2_input.remove(line)
         elif zeroes < ones:
             print(f"Ones beat zeroes, removing ones at index {i}.")
-            for line in sorted(co2_input):
+            for line in co2_input:
                 if line[i] == '1' and len(co2_input) != 1:
                     co2_input.remove(line)
         else:
             print(f"Ones tied zeroes, removing ones at index {i}.")
-            for line in sorted(co2_input):
+            for line in co2_input:
                 if line[i] == '1' and len(co2_input) != 1:
                     co2_input.remove(line)
 
