@@ -27,9 +27,9 @@
 # 11110 1
 # Index 1
 
-# Same code without the `sorted(list)` below, and it can print the full list, and it's len() correctly
+# Same code without the `sorted(list)`, it can print the full list, and it's len() correctly
 # But for some reason, it can't iterate through the full list
-# Output
+# ## Output
 # Index 0
 # Ones beat zeroes, removing zeroes at index 0.
 # ['00100', '11110', '10110', '10111', '10101', '01111', '00111', '11100', '10000', '11001', '00010', '01010'] 12
