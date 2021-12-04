@@ -6,7 +6,7 @@
 
 def the_setup():
     the_input = list()
-    with open('input_XX.txt') as f_object:
+    with open('input_04.txt') as f_object:
         for line in f_object:
             the_input.append(line.strip())
 

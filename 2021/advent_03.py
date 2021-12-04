@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 # Output:
-#
+# The power consumption of the submarine (part one) is: 3242606.
+# The life support rating of the submarine (part two) is: 4856080.
 
 
 def the_setup():
@@ -30,17 +31,12 @@ def part_one(the_input):
             output1 += '0'
             output2 += '1'
 
-    print(output1, output2)
-
-    result = int(f"0b{output1}", 2) * int(f"0b{output2}", 2)
-
-    return result
+    return int(f"0b{output1}", 2) * int(f"0b{output2}", 2)
 
 
 def part_two(the_input):
     oxygen_input = the_input[:]
     for i in range(len(oxygen_input[0])):
-        print(f"Index {i}")
         ones = zeroes = 0
         for line in oxygen_input:
             if line[i] == '1':
@@ -49,28 +45,20 @@ def part_two(the_input):
                 zeroes += 1
 
         if ones > zeroes:
-            print(f"Ones beat zeroes, removing zeroes at index {i}.")
-            print(oxygen_input, len(oxygen_input))
-            for line in sorted(oxygen_input):
-                print(line, line[i])
+            for index, line in enumerate(sorted(oxygen_input)):
                 if line[i] == '0' and len(oxygen_input) != 1:
                     oxygen_input.remove(line)
         elif zeroes > ones:
-            print(f"Zeroes beat ones, removing ones at index {i}.")
-            for line in sorted(oxygen_input):
+            for index, line in enumerate(sorted(oxygen_input)):
                 if line[i] == '1' and len(oxygen_input) != 1:
                     oxygen_input.remove(line)
-                    print(oxygen_input)
         else:
-            print(f"Ones tied zeroes, removing zeroes at index {i}.")
-            for line in sorted(oxygen_input):
+            for index, line in enumerate(sorted(oxygen_input)):
                 if line[i] == '0' and len(oxygen_input) != 1:
                     oxygen_input.remove(line)
-                    print(oxygen_input)
 
     co2_input = the_input[:]
     for i in range(len(the_input[0])):
-        print(f"Index {i}")
         ones = zeroes = 0
         for line in co2_input:
             if line[i] == '1':
@@ -79,17 +67,14 @@ def part_two(the_input):
                 zeroes += 1
 
         if ones < zeroes:
-            print(f"Zeroes beat ones, removing zeroes at index {i}.")
             for line in sorted(co2_input):
                 if line[i] == '0' and len(co2_input) != 1:
                     co2_input.remove(line)
         elif zeroes < ones:
-            print(f"Ones beat zeroes, removing ones at index {i}.")
             for line in sorted(co2_input):
                 if line[i] == '1' and len(co2_input) != 1:
                     co2_input.remove(line)
         else:
-            print(f"Ones tied zeroes, removing ones at index {i}.")
             for line in sorted(co2_input):
                 if line[i] == '1' and len(co2_input) != 1:
                     co2_input.remove(line)
@@ -114,10 +99,10 @@ sample_input = r"""
 
 
 if __name__ == "__main__":
-    # my_input = the_setup()
+    my_input = the_setup()
 
     # To run against sample input
-    my_input = [i for i in sample_input.strip().split('\n')]
+    # my_input = [i for i in sample_input.strip().split('\n')]
 
-    # print(f"The  (part one) is: {part_one(my_input[:])}.")
-    print(f"The  (part two) is: {part_two(my_input[:])}.")
+    print(f"The power consumption of the submarine (part one) is: {part_one(my_input[:])}.")
+    print(f"The life support rating of the submarine (part two) is: {part_two(my_input[:])}.")
