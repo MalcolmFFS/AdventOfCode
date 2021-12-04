@@ -14,18 +14,6 @@ def the_setup():
     return the_input
 
 
-def zeroes_and_ones_counter(the_input):
-    for i in range(len(the_input[0])):
-        ones = zeroes = 0
-        for line in the_input:
-            if line[i] == '1':
-                ones += 1
-            elif line[i] == '0':
-                zeroes += 1
-
-    return zeroes, ones
-
-
 def part_one(the_input):
     gamma = epsilon = ''
     for i in range(len(the_input[0])):
@@ -44,27 +32,26 @@ def part_one(the_input):
 
 
 def part_two(the_input):
-    # Currently BROKEN
-    def find_keepers(thy_input, winner_priority, tie_winner):
+    def find_keepers(thy_input, most_common_wins, tie_winner):
         for i in range(len(thy_input[0])):
-            list_at_index = [j[i] for j in my_input]
+            list_at_index = [j[i] for j in thy_input]
             zeroes = list_at_index.count('0')
             ones = list_at_index.count('1')
             keepers = thy_input[:]
 
             if ones > zeroes:
                 for line in thy_input:
-                    if winner_priority and line[i] == '0':
+                    if most_common_wins and line[i] == '0':
                         keepers.remove(line)
-                    elif not winner_priority and line[i] == '1':
+                    elif not most_common_wins and line[i] == '1':
                         keepers.remove(line)
                     if len(keepers) == 1:
                         return keepers[0]
             elif zeroes > ones:
                 for line in thy_input:
-                    if winner_priority and line[i] == '1':
+                    if most_common_wins and line[i] == '1':
                         keepers.remove(line)
-                    elif not winner_priority and line[i] == '0':
+                    elif not most_common_wins and line[i] == '0':
                         keepers.remove(line)
                     if len(keepers) == 1:
                         return keepers[0]
@@ -80,7 +67,6 @@ def part_two(the_input):
         return keepers[0]
 
     oxygen_rating = find_keepers(the_input[:], True, '1')
-
     co2_rating = find_keepers(the_input[:], False, '0')
 
     return int(oxygen_rating, 2) * int(co2_rating, 2)
