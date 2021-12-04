@@ -69,17 +69,16 @@ def part_two(numbers_called, boards):
 
 
 def main():
+    sample_input = r"""
+    Sample input won't work for this setup, would need to hijack the_setup() to use sample input.
+    """
+
     # To run against sample input
     # my_input = [i for i in sample_input.strip().split('\n')]
 
     numbers_called, boards = the_setup()
     print(f"The final score with the best board (part one) is: {part_one(numbers_called, boards)}.")
     print(f"The final score with the worst board (part two) is: {part_two(numbers_called, boards)}.")
-
-
-sample_input = r"""
-Sample input won't work for this setup, would need to hijack the_setup() to use sample input.
-"""
 
 
 if __name__ == "__main__":

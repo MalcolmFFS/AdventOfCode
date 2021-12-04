@@ -25,14 +25,17 @@ def part_two(the_input):
     pass
 
 
-sample_input = r"""
-"""
+def main():
+    sample_input = r"""
+    """
 
-
-if __name__ == "__main__":
     # To run against sample input
     # my_input = [i for i in sample_input.strip().split('\n')]
 
     my_input = the_setup()
     print(f"The  (part one) is: {part_one(my_input)}.")
     print(f"The  (part two) is: {part_two(my_input)}.")
+
+
+if __name__ == "__main__":
+    main()
