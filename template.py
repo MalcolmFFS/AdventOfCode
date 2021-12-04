@@ -10,6 +10,10 @@ def the_setup():
         for line in f_object:
             the_input.append(line.strip())
 
+        # tmp = f_object.read().split('\n\n')
+        # a = tmp[0]
+        # the_input = [int(i) for i in tmp]
+
     return the_input
 
 
@@ -26,10 +30,9 @@ sample_input = r"""
 
 
 if __name__ == "__main__":
-    my_input = the_setup()
-
     # To run against sample input
     # my_input = [i for i in sample_input.strip().split('\n')]
 
+    my_input = the_setup()
     print(f"The  (part one) is: {part_one(my_input)}.")
     print(f"The  (part two) is: {part_two(my_input)}.")

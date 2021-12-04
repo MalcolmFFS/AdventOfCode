@@ -14,8 +14,7 @@ def the_setup():
     return the_input
 
 
-def part_one(the_input):
-    output1 = output2 = ''
+def zeroes_and_ones_counter(the_input):
     for i in range(len(the_input[0])):
         ones = zeroes = 0
         for line in the_input:
@@ -24,62 +23,67 @@ def part_one(the_input):
             elif line[i] == '0':
                 zeroes += 1
 
-        if ones > zeroes:
-            output1 += '1'
-            output2 += '0'
-        else:
-            output1 += '0'
-            output2 += '1'
+    return zeroes, ones
 
-    return int(f"0b{output1}", 2) * int(f"0b{output2}", 2)
+
+def part_one(the_input):
+    gamma = epsilon = ''
+    for i in range(len(the_input[0])):
+        list_at_index = [j[i] for j in my_input]
+        zeroes = list_at_index.count('0')
+        ones = list_at_index.count('1')
+
+        if ones > zeroes:
+            gamma += '1'
+            epsilon += '0'
+        else:
+            gamma += '0'
+            epsilon += '1'
+
+    return int(gamma, 2) * int(epsilon, 2)
 
 
 def part_two(the_input):
-    oxygen_input = the_input[:]
-    for i in range(len(oxygen_input[0])):
-        ones = zeroes = 0
-        for line in oxygen_input:
-            if line[i] == '1':
-                ones += 1
-            elif line[i] == '0':
-                zeroes += 1
+    # Currently BROKEN
+    def find_keepers(thy_input, winner_priority, tie_winner):
+        for i in range(len(thy_input[0])):
+            list_at_index = [j[i] for j in my_input]
+            zeroes = list_at_index.count('0')
+            ones = list_at_index.count('1')
+            keepers = thy_input[:]
 
-        if ones > zeroes:
-            for index, line in enumerate(sorted(oxygen_input)):
-                if line[i] == '0' and len(oxygen_input) != 1:
-                    oxygen_input.remove(line)
-        elif zeroes > ones:
-            for index, line in enumerate(sorted(oxygen_input)):
-                if line[i] == '1' and len(oxygen_input) != 1:
-                    oxygen_input.remove(line)
-        else:
-            for index, line in enumerate(sorted(oxygen_input)):
-                if line[i] == '0' and len(oxygen_input) != 1:
-                    oxygen_input.remove(line)
+            if ones > zeroes:
+                for line in thy_input:
+                    if winner_priority and line[i] == '0':
+                        keepers.remove(line)
+                    elif not winner_priority and line[i] == '1':
+                        keepers.remove(line)
+                    if len(keepers) == 1:
+                        return keepers[0]
+            elif zeroes > ones:
+                for line in thy_input:
+                    if winner_priority and line[i] == '1':
+                        keepers.remove(line)
+                    elif not winner_priority and line[i] == '0':
+                        keepers.remove(line)
+                    if len(keepers) == 1:
+                        return keepers[0]
+            else:
+                for line in thy_input:
+                    if line[i] != tie_winner:
+                        keepers.remove(line)
+                    if len(keepers) == 1:
+                        return keepers[0]
 
-    co2_input = the_input[:]
-    for i in range(len(the_input[0])):
-        ones = zeroes = 0
-        for line in co2_input:
-            if line[i] == '1':
-                ones += 1
-            elif line[i] == '0':
-                zeroes += 1
+            thy_input = keepers[:]
 
-        if ones < zeroes:
-            for line in sorted(co2_input):
-                if line[i] == '0' and len(co2_input) != 1:
-                    co2_input.remove(line)
-        elif zeroes < ones:
-            for line in sorted(co2_input):
-                if line[i] == '1' and len(co2_input) != 1:
-                    co2_input.remove(line)
-        else:
-            for line in sorted(co2_input):
-                if line[i] == '1' and len(co2_input) != 1:
-                    co2_input.remove(line)
+        return keepers[0]
 
-    return int(oxygen_input[0], 2) * int(co2_input[0], 2)
+    oxygen_rating = find_keepers(the_input[:], True, '1')
+
+    co2_rating = find_keepers(the_input[:], False, '0')
+
+    return int(oxygen_rating, 2) * int(co2_rating, 2)
 
 
 sample_input = r"""
@@ -99,10 +103,9 @@ sample_input = r"""
 
 
 if __name__ == "__main__":
-    my_input = the_setup()
-
     # To run against sample input
     # my_input = [i for i in sample_input.strip().split('\n')]
 
+    my_input = the_setup()
     print(f"The power consumption of the submarine (part one) is: {part_one(my_input[:])}.")
     print(f"The life support rating of the submarine (part two) is: {part_two(my_input[:])}.")
