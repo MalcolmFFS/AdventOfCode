@@ -6,11 +6,10 @@
 
 
 class Board:
-    def __init__(self, board):
-        # self.board = [[int(col) for col in row.split()] for row in my_board.split('\n')]
+    def __init__(self, board, board_size):
         self.board = board
-        self.rows_score = [0 for _ in range(5)]
-        self.columns_score = [0 for _ in range(5)]
+        self.rows_score = [0 for _ in range(board_size)]
+        self.columns_score = [0 for _ in range(board_size)]
         self.marked = list()
         self.unmarked = {
             col: [row_idx, col_idx]
@@ -60,7 +59,8 @@ def the_setup():
     nums = [int(n) for n in raw_input[0].split(',')]
     boards = dict()
     for idx, raw_board in enumerate(raw_input[1:]):
-        boards[idx] = Board([[int(col) for col in row.split()] for row in raw_board.split('\n')])
+        board = [[int(col) for col in row.split()] for row in raw_board.split('\n')]
+        boards[idx] = Board(board, 5)
 
     return nums, boards
 
