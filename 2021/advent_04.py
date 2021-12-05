@@ -6,7 +6,7 @@
 
 
 class Board:
-    def __init__(self, board, board_size):
+    def __init__(self, board, board_size=5):
         self.board = board
         self.rows_score = [0 for _ in range(board_size)]
         self.columns_score = [0 for _ in range(board_size)]
