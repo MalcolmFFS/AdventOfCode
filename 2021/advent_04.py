@@ -8,8 +8,8 @@
 class Board:
     def __init__(self, my_board):
         self.board = [[int(col) for col in row.split()] for row in my_board.split('\n')]
-        self.rows_score = {i: 0 for i in range(5)}
-        self.columns_score = {i: 0 for i in range(5)}
+        self.rows_score = [0 for _ in range(5)]
+        self.columns_score = [0 for _ in range(5)]
         self.marked = list()
         self.unmarked = {
             col: [row_idx, col_idx]
