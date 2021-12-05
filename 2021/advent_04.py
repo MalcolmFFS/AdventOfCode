@@ -6,8 +6,9 @@
 
 
 class Board:
-    def __init__(self, my_board):
-        self.board = [[int(col) for col in row.split()] for row in my_board.split('\n')]
+    def __init__(self, board):
+        # self.board = [[int(col) for col in row.split()] for row in my_board.split('\n')]
+        self.board = board
         self.rows_score = [0 for _ in range(5)]
         self.columns_score = [0 for _ in range(5)]
         self.marked = list()
@@ -54,10 +55,12 @@ class Board:
 
 def the_setup():
     with open('input_04.txt') as f_object:
-        tmp = f_object.read().split('\n\n')
+        raw_input = f_object.read().split('\n\n')
 
-    nums = [int(n) for n in tmp[0].split(',')]
-    boards = {idx: Board(board) for idx, board in enumerate(tmp[1:])}
+    nums = [int(n) for n in raw_input[0].split(',')]
+    boards = dict()
+    for idx, raw_board in enumerate(raw_input[1:]):
+        boards[idx] = Board([[int(col) for col in row.split()] for row in raw_board.split('\n')])
 
     return nums, boards
 
@@ -101,8 +104,8 @@ def main():
     # my_input = [i for i in sample_input.strip().split('\n')]
 
     numbers_called, boards = the_setup()
-    print(f"The final score with the best board (part one) is: {part_one(numbers_called, boards)}.")
-    print(f"The final score with the worst board (part two) is: {part_two(numbers_called, boards)}.")
+    print(f"The final score with the winning board (part one) is: {part_one(numbers_called, boards)}.")
+    print(f"The final score with the losing board (part two) is: {part_two(numbers_called, boards)}.")
 
 
 if __name__ == "__main__":
