@@ -50,6 +50,14 @@ def check_all_lines(the_input, diagonals=False):
         else:
             return abs(xdiff - ydiff)
 
+    def find_count_of_repetitions(the_counter, repetitions=2):
+        count = 0
+        for a, b in the_counter.items():
+            if b > 1:
+                count += 1
+
+        return count
+
     counter = defaultdict(int)
     x = 0
     y = 1
@@ -68,29 +76,15 @@ def check_all_lines(the_input, diagonals=False):
             x_coord += step_x
             y_coord += step_y
 
-    return counter
+    return find_count_of_repetitions(counter)
 
 
 def part_one(the_input):
-    counter = check_all_lines(the_input)
-
-    count = 0
-    for a, b in counter.items():
-        if b > 1:
-            count += 1
-
-    return count
+    return check_all_lines(the_input)
 
 
 def part_two(the_input):
-    counter = check_all_lines(the_input, True)
-
-    count = 0
-    for a, b in counter.items():
-        if b > 1:
-            count += 1
-
-    return count
+    return check_all_lines(the_input, True)
 
 
 def main():
