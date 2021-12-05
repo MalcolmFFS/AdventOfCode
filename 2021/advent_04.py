@@ -5,67 +5,84 @@
 # The final score with the worst board (part two) is: 6594.
 
 
+class Board:
+    def __init__(self, my_board):
+        self.board = [[int(col) for col in row.split()] for row in my_board.split('\n')]
+        self.rows_score = {i: 0 for i in range(5)}
+        self.columns_score = {i: 0 for i in range(5)}
+        self.marked = list()
+        self.unmarked = {
+            col: [row_idx, col_idx]
+            for row_idx, row in enumerate(self.board)
+            for col_idx, col in enumerate(row)
+        }
+
+    def check_victory(self):
+        for i in range(5):
+            if self.rows_score[i] == 5 or self.columns_score[i] == 5:
+                return True
+
+    def calculate_score(self, num):
+        return sum(self.unmarked) * num
+
+    def check_for_number(self, num):
+        """
+        Check if last number called is on board, and score it.
+        :param num: Last number called
+        :return: 0 for not on baord, 2 if on board but not victory, 1 if victory.
+        """
+        if num in self.unmarked:
+            self.rows_score[self.unmarked[num][0]] += 1
+            self.columns_score[self.unmarked[num][1]] += 1
+
+            del self.unmarked[num]
+            self.marked.append(num)
+
+            if self.check_victory():
+                return 1
+            else:
+                return 2
+
+        else:
+            return 0
+
+
 def the_setup():
     with open('input_04.txt') as f_object:
         tmp = f_object.read().split('\n\n')
 
     nums = [int(n) for n in tmp[0].split(',')]
-    boards = [[[
-        [int(col), 0] for col in row.split()]
-        for row in board.split('\n')]
-        for board in tmp[1:]
-    ]
+    boards = {idx: Board(board) for idx, board in enumerate(tmp[1:])}
 
     return nums, boards
 
 
-def calculate_board_score(board, num):
-    unmarked_nums = []
-    for my_row in board:
-        for my_col in my_row:
-            if my_col[1] == 0:
-                unmarked_nums.append(my_col[0])
-
-    return sum(unmarked_nums) * num
-
-
-def part_one(numbers_called, boards):
-    for n in numbers_called:
-        for board in boards:
-            for row in board:
-                for col_index, column in enumerate(row):
-                    if column[0] == n:
-                        column[1] = 1
-                        cond1 = sum([col[1] for col in row]) == 5
-                        cond2 = sum([row[col_index][1] for row in board]) == 5
-
-                        if cond1 or cond2:
-                            return calculate_board_score(board, n)
-                    else:
-                        continue
+def part_one(nums, boards):
+    for num in nums:
+        for idx, board in boards.items():
+            check_for_num_response = board.check_for_number(num)
+            if check_for_num_response == 0:
+                continue
+            elif check_for_num_response == 1:
+                return board.calculate_score(num)
+            elif check_for_num_response == 2:
+                continue
 
 
-def part_two(numbers_called, boards):
-    for n in numbers_called:
-        tmp_boards = boards[:]
-
-        for board in tmp_boards:
-            for row in board:
-                for col_index, column in enumerate(row):
-
-                    if column[0] == n:
-                        column[1] = 1
-                        cond1 = sum([col[1] for col in row]) == 5
-                        cond2 = sum([row[col_index][1] for row in board]) == 5
-
-                        if cond1 or cond2:
-                            if len(tmp_boards) > 1:
-                                boards.remove(board)
-                                continue
-                            else:
-                                return calculate_board_score(board, n)
-                    else:
-                        continue
+def part_two(nums, boards):
+    for num in nums:
+        tmp_boards = boards.copy()
+        for idx, board in tmp_boards.items():
+            check_for_num_response = board.check_for_number(num)
+            if check_for_num_response == 0:
+                continue
+            elif check_for_num_response == 1:
+                if len(boards) == 1:
+                    return board.calculate_score(num)
+                else:
+                    del boards[idx]
+            elif check_for_num_response == 2:
+                continue
 
 
 def main():
