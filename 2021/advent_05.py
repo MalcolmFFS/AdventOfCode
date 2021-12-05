@@ -5,6 +5,7 @@
 # There are smoke lines with diagonals overlaping 2+ times (part one) 21406 times.
 
 
+import re
 from collections import defaultdict
 
 
@@ -13,14 +14,10 @@ def the_setup():
         tmp_vectors = f_object.read().split('\n')
         the_input = list()
         for vector in tmp_vectors:
-            v_start, v_end = vector.split(' -> ')
-            a, b = v_start.strip().split(',')
-            start_point = [int(a), int(b)]
-
-            a, b = v_end.strip().split(',')
-            end_point = [int(a), int(b)]
-
-            the_input.append([start_point, end_point])
+            groups = re.match(r"(\d+),(\d+) -> (\d+),(\d+)", vector)
+            ax, ay = int(groups[1]), int(groups[2])
+            bx, by = int(groups[3]), int(groups[4])
+            the_input.append([[ax, ay], [bx, by]])
 
     return the_input
 
@@ -51,12 +48,7 @@ def check_all_lines(the_input, diagonals=False):
             return abs(xdiff - ydiff)
 
     def find_count_of_repetitions(the_counter, repetitions=2):
-        count = 0
-        for a, b in the_counter.items():
-            if b > 1:
-                count += 1
-
-        return count
+        return len([a for a in the_counter.values() if a >= repetitions])
 
     counter = defaultdict(int)
     x = 0
