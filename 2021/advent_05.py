@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 # Output:
-#
+# There are smoke lines without diagonals overlap 2+ times (part one) 7438 times.
+# There are smoke lines with diagonals overlaping 2+ times (part one) 21406 times.
 
 
-import re
+from collections import defaultdict
 
 
 def the_setup():
@@ -12,7 +13,7 @@ def the_setup():
         tmp_vectors = f_object.read().split('\n')
         the_input = list()
         for vector in tmp_vectors:
-            v_start, v_end = re.split(r'->', vector)
+            v_start, v_end = vector.split(' -> ')
             a, b = v_start.strip().split(',')
             start_point = [int(a), int(b)]
 
@@ -24,41 +25,54 @@ def the_setup():
     return the_input
 
 
-def part_one(the_input):
-    counter = dict()
-    for start, end in the_input:
-        x = 0
-        y = 1
-        if start[x] == end[x]:
-            if start[y] > end[y]:
-                first = end[y]
-                second = start[y]
-            else:
-                first = start[y]
-                second = end[y]
-
-            for i in range(first, second + 1):
-                key = (start[x], i)
-                if key not in counter:
-                    counter[key] = 0
-                counter[key] += 1
-            # print(1, counter)
-        elif start[y] == end[y]:
-            if start[x] > end[x]:
-                first = end[x]
-                second = start[x]
-            else:
-                first = start[x]
-                second = end[x]
-
-            for i in range(first, second + 1):
-                key = (i, start[y])
-                if key not in counter:
-                    counter[key] = 0
-                counter[key] += 1
-            # print(2, counter)
+def check_all_lines(the_input, diagonals=False):
+    def find_step(a, b):
+        if a[0] > b[0]:
+            xstep = -1
+        elif a[0] < b[0]:
+            xstep = 1
         else:
-            pass
+            xstep = 0
+
+        if a[1] > b[1]:
+            ystep = -1
+        elif a[1] < b[1]:
+            ystep = 1
+        else:
+            ystep = 0
+
+        return xstep, ystep
+
+    def find_diff(a, b):
+        xdiff, ydiff = abs(a[0] - b[0]), abs(a[1] - b[1])
+        if xdiff == ydiff:
+            return xdiff
+        else:
+            return abs(xdiff - ydiff)
+
+    counter = defaultdict(int)
+    x = 0
+    y = 1
+    for start, end in the_input:
+        step_x, step_y = find_step(start, end)
+        diff = find_diff(start, end)
+
+        if step_x != 0 and step_y != 0 and diagonals is False:
+            continue
+
+        x_coord = start[x]
+        y_coord = start[y]
+        for i in range(diff + 1):
+            key = (x_coord, y_coord)
+            counter[key] += 1
+            x_coord += step_x
+            y_coord += step_y
+
+    return counter
+
+
+def part_one(the_input):
+    counter = check_all_lines(the_input)
 
     count = 0
     for a, b in counter.items():
@@ -69,71 +83,7 @@ def part_one(the_input):
 
 
 def part_two(the_input):
-    counter = dict()
-    for start, end in the_input:
-        x = 0
-        y = 1
-        if start[x] == end[x]:
-            if start[y] > end[y]:
-                first = end[y]
-                second = start[y]
-            else:
-                first = start[y]
-                second = end[y]
-
-            for i in range(first, second + 1):
-                key = (start[x], i)
-                if key not in counter:
-                    counter[key] = 0
-                counter[key] += 1
-            # print(1, counter)
-        elif start[y] == end[y]:
-            if start[x] > end[x]:
-                first = end[x]
-                second = start[x]
-            else:
-                first = start[x]
-                second = end[x]
-
-            for i in range(first, second + 1):
-                key = (i, start[y])
-                if key not in counter:
-                    counter[key] = 0
-                counter[key] += 1
-            # print(2, counter)
-        else:
-            if start[y] > end[y] and start[x] > end[x]:
-                diff = start[x] - end[x]
-                for i in range(diff + 1):
-                    key = (end[x] + i, end[y] + i)
-                    if key not in counter:
-                        counter[key] = 0
-                    counter[key] += 1
-                # print(2, counter)
-            elif start[y] < end[y] and start[x] < end[x]:
-                diff = end[x] - start[x]
-                for i in range(diff + 1):
-                    key = (start[x] + i, start[y] + i)
-                    if key not in counter:
-                        counter[key] = 0
-                    counter[key] += 1
-                # print(2, counter)
-            else:
-                diff = abs(start[x] - end[x])
-                if start[x] > end[x]:
-                    for i in range(diff + 1):
-                        key = (start[x] - i, start[y] + i)
-                        if key not in counter:
-                            counter[key] = 0
-                        counter[key] += 1
-                    # print(2, counter)
-                else:
-                    for i in range(diff + 1):
-                        key = (start[x] + i, start[y] - i)
-                        if key not in counter:
-                            counter[key] = 0
-                        counter[key] += 1
-                    # print(2, counter)
+    counter = check_all_lines(the_input, True)
 
     count = 0
     for a, b in counter.items():
@@ -144,15 +94,9 @@ def part_two(the_input):
 
 
 def main():
-    sample_input = r"""
-    """
-
-    # To run against sample input
-    # my_input = [i for i in sample_input.strip().split('\n')]
-
     my_input = the_setup()
-    print(f"The  (part one) is: {part_one(my_input)}.")
-    print(f"The  (part two) is: {part_two(my_input)}.")
+    print(f"The overlaps of at least 2 smoke lines without diagonals (part one) is: {part_one(my_input)}.")
+    print(f"The overlaps of at least 2 smoke lines with diagonals (part two) is: {part_two(my_input)}.")
 
 
 if __name__ == "__main__":
