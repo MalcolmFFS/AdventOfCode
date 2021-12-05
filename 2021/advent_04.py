@@ -17,11 +17,6 @@ class Board:
             for col_idx, col in enumerate(row)
         }
 
-    def check_victory(self):
-        for i in range(5):
-            if self.rows_score[i] == 5 or self.columns_score[i] == 5:
-                return True
-
     def calculate_score(self, num):
         return sum(self.unmarked) * num
 
@@ -34,9 +29,7 @@ class Board:
         if num in self.unmarked:
             self.rows_score[self.unmarked[num][0]] += 1
             self.columns_score[self.unmarked[num][1]] += 1
-
-            del self.unmarked[num]
-            self.marked.append(num)
+            self.update_marked(num)
 
             if self.check_victory():
                 return 1
@@ -45,6 +38,15 @@ class Board:
 
         else:
             return 0
+
+    def check_victory(self):
+        for i in range(5):
+            if self.rows_score[i] == 5 or self.columns_score[i] == 5:
+                return True
+
+    def update_marked(self, num):
+        del self.unmarked[num]
+        self.marked.append(num)
 
     def __str__(self):
         return '\n'.join([str(row) for row in self.board])
