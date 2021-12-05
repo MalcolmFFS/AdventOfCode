@@ -46,6 +46,9 @@ class Board:
         else:
             return 0
 
+    def __str__(self):
+        return '\n'.join([str(row) for row in self.board])
+
 
 def the_setup():
     with open('input_04.txt') as f_object:
@@ -64,6 +67,7 @@ def part_one(nums, boards):
             if check_for_num_response == 0:
                 continue
             elif check_for_num_response == 1:
+            #     print(f"\nWinning Board:\n{board}\nMarked Numbers: {board.marked}")
                 return board.calculate_score(num)
             elif check_for_num_response == 2:
                 continue
@@ -78,6 +82,7 @@ def part_two(nums, boards):
                 continue
             elif check_for_num_response == 1:
                 if len(boards) == 1:
+                #     print(f"\nWinning Board:\n{board}\nMarked Numbers: {board.marked}")
                     return board.calculate_score(num)
                 else:
                     del boards[idx]
