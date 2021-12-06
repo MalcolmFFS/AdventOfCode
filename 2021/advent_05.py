@@ -9,7 +9,7 @@ import re
 from collections import defaultdict
 
 
-def the_setup():
+def the_setup() -> list:
     with open('input_05.txt') as f_object:
         tmp_vectors = f_object.read().split('\n')
         the_input = list()
@@ -22,8 +22,8 @@ def the_setup():
     return the_input
 
 
-def check_all_lines(the_input, diagonals=False):
-    def find_step(a, b):
+def check_all_lines(the_input: list, diagonals: bool = False) -> int:
+    def find_step(a: list, b: list) -> tuple:
         if a[0] > b[0]:
             xstep = -1
         elif a[0] < b[0]:
@@ -40,14 +40,14 @@ def check_all_lines(the_input, diagonals=False):
 
         return xstep, ystep
 
-    def find_diff(a, b):
+    def find_diff(a: list, b: list) -> int:
         xdiff, ydiff = abs(a[0] - b[0]), abs(a[1] - b[1])
         if xdiff == ydiff:
             return xdiff
         else:
             return abs(xdiff - ydiff)
 
-    def find_count_of_repetitions(the_counter, repetitions=2):
+    def find_count_of_repetitions(the_counter: dict, repetitions: int = 2) -> int:
         return len([a for a in the_counter.values() if a >= repetitions])
 
     counter = defaultdict(int)
@@ -71,11 +71,11 @@ def check_all_lines(the_input, diagonals=False):
     return find_count_of_repetitions(counter)
 
 
-def part_one(the_input):
+def part_one(the_input: list) -> int:
     return check_all_lines(the_input)
 
 
-def part_two(the_input):
+def part_two(the_input: list) -> int:
     return check_all_lines(the_input, True)
 
 

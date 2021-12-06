@@ -4,7 +4,7 @@
 # The total of times the measurement sum increased was: 1418.
 
 
-def the_setup():
+def the_setup() -> list:
     the_input = list()
     with open('input_01.txt') as f_object:
         for line in f_object:
@@ -13,7 +13,7 @@ def the_setup():
     return the_input
 
 
-def part_one(the_input):
+def part_one(the_input: list) -> int:
     increased_count = 0
     for index, i in enumerate(the_input):
         if index != 0:
@@ -23,7 +23,7 @@ def part_one(the_input):
     return increased_count
 
 
-def part_two(the_input):
+def part_two(the_input: list) -> int:
     measurement_sums = list()
     for index, i in enumerate(the_input):
         try:

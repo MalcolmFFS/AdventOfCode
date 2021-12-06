@@ -5,7 +5,7 @@
 # The quantity of lanternfish after 256 days (part two) is: 1754000560399.
 
 
-def the_setup():
+def the_setup() -> list:
     with open('input_06.txt') as f_object:
         for line in f_object:
             the_input = [int(fish) for fish in line.strip().split(',')]
@@ -13,7 +13,7 @@ def the_setup():
     return the_input
 
 
-def simulate_lanternfish(the_input, days=80):
+def simulate_lanternfish(the_input: list, days: int = 80) -> int:
     fish_dict = {i: the_input.count(i) if i in the_input else 0 for i in range(9)}
 
     for day in range(days):
@@ -26,12 +26,12 @@ def simulate_lanternfish(the_input, days=80):
     return sum(fish_dict.values())
 
 
-def part_one(the_input):
-    return simulate_lanternfish(the_input[:], 80)
+def part_one(the_input: list) -> int:
+    return simulate_lanternfish(the_input, 80)
 
 
-def part_two(the_input):
-    return simulate_lanternfish(the_input[:], 256)
+def part_two(the_input: list) -> int:
+    return simulate_lanternfish(the_input, 256)
 
 
 def main():

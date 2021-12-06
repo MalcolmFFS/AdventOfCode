@@ -5,7 +5,7 @@
 # The life support rating of the submarine (part two) is: 4856080.
 
 
-def the_setup():
+def the_setup() -> list:
     the_input = list()
     with open('input_03.txt') as f_object:
         for line in f_object:
@@ -14,7 +14,7 @@ def the_setup():
     return the_input
 
 
-def part_one(the_input):
+def part_one(the_input: list) -> int:
     gamma = epsilon = ''
     for i in range(len(the_input[0])):
         list_at_index = [j[i] for j in my_input]
@@ -31,8 +31,8 @@ def part_one(the_input):
     return int(gamma, 2) * int(epsilon, 2)
 
 
-def part_two(the_input):
-    def find_keepers(thy_input, most_common_wins, tie_winner):
+def part_two(the_input: list) -> int:
+    def find_keepers(thy_input: list, most_common_wins: bool, tie_winner: str) -> int:
         for i in range(len(thy_input[0])):
             list_at_index = [j[i] for j in thy_input]
             zeroes = list_at_index.count('0')
@@ -46,7 +46,7 @@ def part_two(the_input):
                     elif not most_common_wins and line[i] == '1':
                         keepers.remove(line)
                     if len(keepers) == 1:
-                        return keepers[0]
+                        return int(keepers[0], 2)
             elif zeroes > ones:
                 for line in thy_input:
                     if most_common_wins and line[i] == '1':
@@ -54,13 +54,13 @@ def part_two(the_input):
                     elif not most_common_wins and line[i] == '0':
                         keepers.remove(line)
                     if len(keepers) == 1:
-                        return keepers[0]
+                        return int(keepers[0], 2)
             else:
                 for line in thy_input:
                     if line[i] != tie_winner:
                         keepers.remove(line)
                     if len(keepers) == 1:
-                        return keepers[0]
+                        return int(keepers[0], 2)
 
             thy_input = keepers[:]
 
@@ -69,7 +69,7 @@ def part_two(the_input):
     oxygen_rating = find_keepers(the_input[:], True, '1')
     co2_rating = find_keepers(the_input[:], False, '0')
 
-    return int(oxygen_rating, 2) * int(co2_rating, 2)
+    return oxygen_rating * co2_rating
 
 
 sample_input = r"""

@@ -6,7 +6,7 @@
 
 
 class Board:
-    def __init__(self, board, board_size=5):
+    def __init__(self, board: list, board_size: int = 5):
         self.board = board
         self.rows_score = [0 for _ in range(board_size)]
         self.columns_score = [0 for _ in range(board_size)]
@@ -17,10 +17,10 @@ class Board:
             for col_idx, col in enumerate(row)
         }
 
-    def calculate_score(self, num):
+    def calculate_score(self, num: int) -> int:
         return sum(self.unmarked) * num
 
-    def check_for_number(self, num):
+    def check_for_number(self, num: int) -> int:
         """
         Check if last number called is on board, and score it.
         :param num: Last number called
@@ -32,27 +32,27 @@ class Board:
             self.update_marked(num)
 
             if self.check_victory():
-                return 1
-            else:
-                return 2
+                return True
 
         else:
-            return 0
+            return False
 
-    def check_victory(self):
+    def check_victory(self) -> bool:
         for i in range(5):
             if self.rows_score[i] == 5 or self.columns_score[i] == 5:
                 return True
 
-    def update_marked(self, num):
+    def update_marked(self, num: int) -> None:
         del self.unmarked[num]
         self.marked.append(num)
+
+        return
 
     def __str__(self):
         return '\n'.join([str(row) for row in self.board])
 
 
-def the_setup():
+def the_setup() -> tuple:
     with open('input_04.txt') as f_object:
         raw_input = f_object.read().split('\n\n')
 
@@ -65,20 +65,18 @@ def the_setup():
     return nums, boards
 
 
-def part_one(nums, boards):
+def part_one(nums: list, boards: dict) -> int:
     for num in nums:
         for idx, board in boards.items():
             check_for_num_response = board.check_for_number(num)
-            if check_for_num_response == 0:
+            if check_for_num_response:
                 continue
-            elif check_for_num_response == 1:
+            elif check_for_num_response:
                 # print(f"\nWinning Board:\n{board}\nMarked Numbers: {board.marked}")
                 return board.calculate_score(num)
-            elif check_for_num_response == 2:
-                continue
 
 
-def part_two(nums, boards):
+def part_two(nums: list, boards: dict) -> int:
     for num in nums:
         tmp_boards = boards.copy()
         for idx, board in tmp_boards.items():

@@ -5,7 +5,7 @@
 # The sub horizontal position times the depth (part two) is: 1856459736.
 
 
-def the_setup():
+def the_setup() -> list:
     the_input = list()
     with open('input_02.txt') as f_object:
         for line in f_object:
@@ -14,7 +14,7 @@ def the_setup():
     return the_input
 
 
-def part_one(the_input):
+def part_one(the_input: list) -> int:
     forward = depth = 0
     for line in the_input:
         direction, distance = line.split()
@@ -28,7 +28,7 @@ def part_one(the_input):
     return forward * depth
 
 
-def part_two(the_input):
+def part_two(the_input: list) -> int:
     forward = depth = aim = 0
     for line in the_input:
         direction, distance = line.split()
