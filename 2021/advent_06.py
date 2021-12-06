@@ -14,20 +14,16 @@ def the_setup():
 
 
 def simulate_lanternfish(the_input, days=80):
-    fish_list = list()
-    for i in range(0, 9):
-        fish_list = [the_input.count(i) if i in the_input else 0 for i in range(9)]
+    fish_dict = {i: the_input.count(i) if i in the_input else 0 for i in range(9)}
 
     for day in range(days):
-        dupe_fish = fish_list[0]
-        new_list = [fish for fish in fish_list[1:]]
+        for i in range(9):
+            new_dict = {k - 1: v for k, v in fish_dict.items() if k != 0}
+            new_dict[8] = fish_dict[0]
+            new_dict[6] += fish_dict[0]
+        fish_dict = new_dict.copy()
 
-        new_list[6] += dupe_fish
-        new_list.append(dupe_fish)
-
-        fish_list = new_list[:]
-
-    return sum(fish_list)
+    return sum(fish for fish in fish_dict.values())
 
 
 def part_one(the_input):
