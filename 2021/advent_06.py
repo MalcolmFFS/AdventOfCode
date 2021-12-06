@@ -19,14 +19,11 @@ def simulate_lanternfish(the_input, days=80):
         fish_list = [the_input.count(i) if i in the_input else 0 for i in range(9)]
 
     for day in range(days):
-        dupe_fishes = fish_list[0]
-        new_list = list()
+        dupe_fish = fish_list[0]
+        new_list = [fish for fish in fish_list[1:]]
 
-        for idx, fish in enumerate(fish_list[1:], 1):
-            new_list.append(fish)
-
-        new_list[6] += dupe_fishes
-        new_list.append(dupe_fishes)
+        new_list[6] += dupe_fish
+        new_list.append(dupe_fish)
 
         fish_list = new_list[:]
 
