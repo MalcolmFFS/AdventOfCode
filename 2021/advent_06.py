@@ -23,7 +23,7 @@ def simulate_lanternfish(the_input, days=80):
             new_dict[6] += fish_dict[0]
         fish_dict = new_dict.copy()
 
-    return sum(fish for fish in fish_dict.values())
+    return sum(fish_dict.values())
 
 
 def part_one(the_input):
