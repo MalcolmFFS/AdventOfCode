@@ -4,6 +4,12 @@
 # The quantity of lanternfish after 80 days (part one) is: 391671.
 # The quantity of lanternfish after 256 days (part two) is: 1754000560399.
 
+# advent_06.py
+# part_one():
+# real    0m0.022s
+# part_two()
+# real    0m0.022s
+
 
 def the_setup() -> list:
     with open('input_06.txt') as f_object:

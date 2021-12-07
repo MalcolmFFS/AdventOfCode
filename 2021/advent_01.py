@@ -3,6 +3,12 @@
 # The total of times the measurement increased was: 1374.
 # The total of times the measurement sum increased was: 1418.
 
+# advent_01.py
+# part_one():
+# real    0m0.020s
+# part_two()
+# real    0m0.020s
+
 
 def the_setup() -> list:
     the_input = list()

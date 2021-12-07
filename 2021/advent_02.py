@@ -4,6 +4,12 @@
 # The sub horizontal position times the depth (part one) is: 2039256.
 # The sub horizontal position times the depth (part two) is: 1856459736.
 
+# advent_02.py
+# part_one():
+# real    0m0.022s
+# part_two()
+# real    0m0.020s
+
 
 def the_setup() -> list:
     the_input = list()

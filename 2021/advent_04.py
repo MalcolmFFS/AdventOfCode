@@ -4,6 +4,12 @@
 # The final score with the best board (part one) is: 2745.
 # The final score with the worst board (part two) is: 6594.
 
+# advent_04.py
+# part_one():
+# real    0m0.025s
+# part_two()
+# real    0m0.024s
+
 
 class Board:
     def __init__(self, board: list, board_size: int = 5):

@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 
 # Output:
-#
+# The fuel consumed givin linear fuel cost (part one) is: 355592.
+# The fuel consumed given sequential fuel cost (part two) is: 101618069.
+
+# advent_07.py
+# part_one():
+# real    0m0.033s
+# part_two()
+# real    0m57.376s
 
 
 def the_setup():

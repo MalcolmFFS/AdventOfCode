@@ -4,6 +4,12 @@
 # There are smoke lines without diagonals overlap 2+ times (part one) 7438 times.
 # There are smoke lines with diagonals overlaping 2+ times (part one) 21406 times.
 
+# advent_05.py
+# part_one():
+# real    0m0.062s
+# part_two()
+# real    0m0.093s
+
 
 import re
 from collections import defaultdict

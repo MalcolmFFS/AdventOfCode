@@ -4,6 +4,12 @@
 # The power consumption of the submarine (part one) is: 3242606.
 # The life support rating of the submarine (part two) is: 4856080.
 
+# advent_03.py
+# part_one():
+# real    0m0.144s
+# part_two()
+# real    0m0.024s
+
 
 def the_setup() -> list:
     the_input = list()
