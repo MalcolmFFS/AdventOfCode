@@ -12,7 +12,7 @@ def the_setup():
     return the_input
 
 
-def calculate_fuel(crabs, position, base_increment=0):
+def calculate_fuel(crabs: list, position: int, base_increment: int = 0) -> int:
     diff = 0
     for crab in crabs:
         increment = 1
@@ -22,7 +22,7 @@ def calculate_fuel(crabs, position, base_increment=0):
     return diff
 
 
-def part_one(the_input):
+def part_one(the_input: list) -> int:
     the_input.sort()
     crab_median = the_input[int(len(the_input) / 2)]
     fuel = calculate_fuel(the_input, crab_median)
@@ -30,7 +30,7 @@ def part_one(the_input):
     return fuel
 
 
-def part_two(the_input):
+def part_two(the_input: list) -> int:
     diffs = dict()
     for i in range(min(the_input), max(the_input) + 1):
         diff = 0
@@ -43,8 +43,11 @@ def part_two(the_input):
         diffs[i] = diff
 
     optimal_point = min(diffs, key=diffs.get)
+
     return diffs[optimal_point]
+
     # ==+==+==+==+==+==+==+==+==+==+==+==+==+==+==
+
     # I know that this works, but I don't know why it works, whereas I do know why median works for pt1
 
     # input_avg = int(sum(the_input) / len(the_input))

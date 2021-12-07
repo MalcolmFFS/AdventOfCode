@@ -65,7 +65,8 @@ def the_setup() -> tuple:
     return nums, boards
 
 
-def part_one(nums: list, boards: dict) -> int:
+def part_one(the_input: list) -> int:
+    nums, boards = the_input
     for num in nums:
         for idx, board in boards.items():
             check_for_num_response = board.check_for_number(num)
@@ -76,7 +77,8 @@ def part_one(nums: list, boards: dict) -> int:
                 return board.calculate_score(num)
 
 
-def part_two(nums: list, boards: dict) -> int:
+def part_two(the_input: list) -> int:
+    nums, boards = the_input
     for num in nums:
         tmp_boards = boards.copy()
         for idx, board in tmp_boards.items():
@@ -101,9 +103,9 @@ def main():
     # To run against sample input
     # my_input = [i for i in sample_input.strip().split('\n')]
 
-    numbers_called, boards = the_setup()
-    print(f"The final score with the winning board (part one) is: {part_one(numbers_called, boards)}.")
-    print(f"The final score with the losing board (part two) is: {part_two(numbers_called, boards)}.")
+    my_input = the_setup()
+    print(f"The final score with the winning board (part one) is: {part_one(my_input[:])}.")
+    print(f"The final score with the losing board (part two) is: {part_two(my_input[:])}.")
 
 
 if __name__ == "__main__":
