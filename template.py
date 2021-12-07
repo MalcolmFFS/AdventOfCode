@@ -4,7 +4,7 @@
 #
 
 
-def the_setup():
+def the_setup() -> list:
     the_input = list()
     with open('input_XX.txt') as f_object:
         for line in f_object:

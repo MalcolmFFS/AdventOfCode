@@ -6,12 +6,12 @@
 
 # advent_07.py
 # part_one():
-# real    0m0.033s
+# real    0m0.031s
 # part_two()
-# real    0m57.376s
+# real    0m0.020s
 
 
-def the_setup():
+def the_setup() -> list:
     with open('input_07.txt') as f_object:
         for line in f_object:
             the_input = [int(i) for i in line.strip().split(',')]
@@ -19,53 +19,59 @@ def the_setup():
     return the_input
 
 
-def calculate_fuel(crabs: list, position: int, base_increment: int = 0) -> int:
-    diff = 0
-    for crab in crabs:
-        increment = 1
-        for _ in range(abs(crab - position)):
-            diff += increment
-            increment += base_increment
-    return diff
-
-
 def part_one(the_input: list) -> int:
     the_input.sort()
-    crab_median = the_input[int(len(the_input) / 2)]
-    fuel = calculate_fuel(the_input, crab_median)
+    crab_median = the_input[len(the_input) // 2]
+    total_fuel = 0
+    for crab in the_input:
+        increment = 1
+        for _ in range(abs(crab - crab_median)):
+            total_fuel += increment
 
-    return fuel
+    return total_fuel
 
 
 def part_two(the_input: list) -> int:
-    diffs = dict()
-    for i in range(min(the_input), max(the_input) + 1):
-        diff = 0
-        for crab in the_input:
-            distance = abs(crab - i)
-            counter = 0
-            for j in range(distance):
-                counter += 1
-                diff += counter
-        diffs[i] = diff
+    # Eddie Woo's "Sum of an Arithmetic Progression (x of 5: [...])" on YouTube
+    # Sum of n terms 1..diff = (n * (1 + len(range(1, diff + 1)) / 2
+    # fuel cost will be (distance * (1 + distance)) / 2 # distance for this problem is the same as length n
+    # simplified: (distance**2 + distance) / 2
+    # diff = abs(crab - position)
+    # fuel_cost = (diff * (diff + 1) / 2)
 
-    optimal_point = min(diffs, key=diffs.get)
+    def calculate_fuel(crabs: list, position: int) -> int:
+        total_fuel = 0
+        for crab in crabs:
+            distance = abs(crab - position)
+            total_fuel += (distance**2 + distance) // 2
 
-    return diffs[optimal_point]
+        return total_fuel
 
-    # ==+==+==+==+==+==+==+==+==+==+==+==+==+==+==
+    def find_optimal(crabs: list, starting_point: int) -> int:
+        base = calculate_fuel(crabs, starting_point)
+        challenger_up = calculate_fuel(crabs, starting_point + 1)
+        challenger_down = calculate_fuel(crabs, starting_point - 1)
+        if challenger_up < base:
+            base = challenger_up
+            i = 2
+            while calculate_fuel(crabs, starting_point + i) < base:
+                base = challenger_up
+                i += 1
+            return base
+        elif challenger_down < base:
+            base = challenger_down
+            i = 2
+            while calculate_fuel(crabs, starting_point - i) < base:
+                base = challenger_down
+                i += 1
+            return base
+        else:
+            return base
 
-    # I know that this works, but I don't know why it works, whereas I do know why median works for pt1
+    crab_avg = sum(the_input) // len(the_input)
+    fuel = find_optimal(the_input, crab_avg)
 
-    # input_avg = int(sum(the_input) / len(the_input))
-    # fuel = calculate_fuel(the_input, input_avg, 1)
-
-    # Supposedly, this is even better, but I also wouldn't even be able to consider turning this into an equation
-    # units = int(abs(crab - position))
-    # fuel = int(units * units / 2 + units / 2)
-    # return fuel
-
-    # return fuel
+    return fuel
 
 
 def main():
