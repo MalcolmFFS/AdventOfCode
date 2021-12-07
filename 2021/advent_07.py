@@ -31,10 +31,31 @@ def part_one(the_input):
 
 
 def part_two(the_input):
-    input_avg = int(sum(the_input) / len(the_input))
-    fuel = calculate_fuel(the_input, input_avg, 1)
+    diffs = dict()
+    for i in range(min(the_input), max(the_input) + 1):
+        diff = 0
+        for crab in the_input:
+            distance = abs(crab - i)
+            counter = 0
+            for j in range(distance):
+                counter += 1
+                diff += counter
+        diffs[i] = diff
 
-    return fuel
+    optimal_point = min(diffs, key=diffs.get)
+    return diffs[optimal_point]
+    # ==+==+==+==+==+==+==+==+==+==+==+==+==+==+==
+    # I know that this works, but I don't know why it works, whereas I do know why median works for pt1
+
+    # input_avg = int(sum(the_input) / len(the_input))
+    # fuel = calculate_fuel(the_input, input_avg, 1)
+
+    # Supposedly, this is even better, but I also wouldn't even be able to consider turning this into an equation
+    # units = int(abs(crab - position))
+    # fuel = int(units * units / 2 + units / 2)
+    # return fuel
+
+    # return fuel
 
 
 def main():
