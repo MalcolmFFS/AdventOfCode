@@ -30,7 +30,7 @@ def part_two(the_input):
         diff = 0
         for crab in the_input:
             distance = abs(crab - i)
-            total_count = counter = 0
+            counter = 0
             for j in range(distance):
                 counter += 1
                 diff += counter
