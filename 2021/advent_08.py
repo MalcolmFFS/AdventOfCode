@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
 # Output:
-#
-
-
-from collections import defaultdict
+# The  (part one) is: 245.
+# The  (part two) is: 983026.
 
 
 def the_setup() -> list:
@@ -33,111 +31,97 @@ def part_one(the_input):
 
 
 def part_two(the_input):
-    known_segments = {2: 1, 3: 7, 4: 4, 7: 8}  # length of signal, number it represents
-    intended_mapping = {
-        0: 'abcefg',   # 6
-        1: 'cf',       # 2
-        2: 'acdeg',    # 5 -> contains none
-        3: 'acdfg',    # 5
-        4: 'bcdf',     # 4
-        5: 'abdfg',    # 5 -> contains none
-        6: 'abdefg',   # 6 -> contains none
-        7: 'acf',      # 3
-        8: 'abcdefg',  # 7
-        9: 'abcdf'     # 5
-    }
-    possible_mappings = {
-        7: {5: [3, 9], 6: [0]},
-        4: {5: [9], 6: []},
-    }
-    all_outputs = list()
+    all_outputs = []
     for line in the_input:
-        cur_mapping = defaultdict(list)
         signals, outputs = line
-        for signal in signals:
-            if len(signal) in known_segments:
-                cur_mapping[known_segments[len(signal)]].append(signal)
-        for output in outputs:
-            if len(output) in known_segments:
-                cur_mapping[known_segments[len(output)]].append(output)
 
-        for signal in signals:
-            if len(signal) in known_segments:
-                continue
-            for char in cur_mapping[1][0]:
-                if char not in signal:
-                    cur_mapping[6].append(signal)
-                    break
-            else:
-                for char in cur_mapping[7][0]:
-                    if char not in signal:
-                        if len(signal) == 5:
-                            cur_mapping[2].append(signal)
-                        break
-                else:
-                    for char in cur_mapping[4][0]:
-                        if char not in signal:
-                            if len(signal) == 5:
-                                cur_mapping[3].append(signal)
-                                break
-                            elif len(signal) == 6:
-                                cur_mapping[0].append(signal)
-                                break
+        intended_mapping = {
+            0: 'abcefg',    # 6
+            1: 'cf',        # 2
+            2: 'acdeg',     # 5
+            3: 'acdfg',     # 5
+            4: 'bcdf',      # 4
+            5: 'abdfg',     # 5
+            6: 'abdefg',    # 6
+            7: 'acf',       # 3
+            8: 'abcdefg',   # 7
+            9: 'abcdfg'     # 6
+        }
+        possibles = dict()  # Keys will be from normal signal, values will be current line
+        for x in ['a', 'b', 'c', 'd', 'e', 'f', 'g']:
+            possibles[x] = list()
+
+        order = [2, 3, 6, 4, 5]
+        for i in order:
+            for signal in [j for j in signals if len(j) == i]:
+                signal = str(signal)
+                if len(signal) == 2:  # 1: 'cf'
+                    possibles['c'] += signal
+                    possibles['f'] += signal
+
+                elif len(signal) == 3:  # 7: 'acf'
+                    for char in signal:
+                        if char not in possibles['c'] and char not in possibles['f']:
+                            possibles['a'] = char
+
+                elif len(signal) == 6:  # 0: 'abcefg', 6: 'abdefg', 9: 'abcdfg'
+                    if len(possibles['c']) == 2:
+                        x, y = possibles['c']
+                        if x not in signal or y not in signal:  # 6: 'abdefg'
+                            if x in signal:
+                                possibles['c'] = y
+                                possibles['f'] = x
+                            elif y in signal:
+                                possibles['c'] = x
+                                possibles['f'] = y
+                        elif x in signal and y in signal:  # 0: 'abcefg', 9: 'abcdfg'
+                            for key in possibles.keys():
+                                if key not in signal:
+                                    possibles['d'].append(key)
+                                    possibles['e'].append(key)
                     else:
-                        cur_mapping[9].append(signal)
+                        for key in possibles.keys():
+                            if key not in signal:
+                                possibles['d'].append(key)
+                                possibles['e'].append(key)
 
-        cur_output = ''
-        # print(cur_mapping)
-        # print(outputs)
+                elif len(signal) == 4:  # 4: 'bcdf'
+                    for char in signal:
+                        if char != possibles['c'] and char != possibles['f']:
+                            if char in possibles['d']:
+                                possibles['d'] = char
+                                possibles['e'].remove(char)
+                                possibles['e'] = str(possibles['e'][0])
+                            elif char not in possibles['d']:
+                                possibles['b'] = char
+
+                elif len(signal) == 5:  # 2: 'acdeg', 3: 'acdfg', 5: 'abdfg'  ## 3a 1b 2c 3d 1e 2f 3g
+                    if possibles['c'] not in signal:  # 5: 'abdfg'
+                        for char in signal:
+                            if char not in possibles.values():
+                                possibles['g'] = char
+                    elif possibles['f'] not in signal:  # 2: 'acdeg'
+                        for char in signal:
+                            if char not in possibles.values():
+                                pass
+                    else:  # 3: 'acdfg'
+                        for char in signal:
+                            if char not in possibles.values():
+                                possibles['g'] = char
+
+        possibles['d'] = possibles['d'][0]
+        possibles['e'] = possibles['e'][0]
+        possibles_rev = {v: k for k, v in possibles.items()}  # Keys from current line, values from normal input
+        intended_mapping_rev = {v: k for k, v in intended_mapping.items()}
+        actual_out = ''
         for output in outputs:
-            found_flag = False
-            # print(f"Working on output: {output}!")
-            if len(output) in known_segments:
-                cur_output += str(known_segments[len(output)])
-                # print(f"{output} has len() {len(output)} which is in known_segments, adding '{known_segments[len(output)]}'")
-                found_flag = True
-                continue
+            out = ''
+            for char in output:
+                out += possibles_rev[char]
 
-            if len(output) == 6:
-                cur_valid = '6'
-            elif len(output) == 5:
-                c = [x for x in cur_mapping[1][0] if x not in cur_mapping[6][0]]
-                if c[0] in output:
-                    cur_valid = '2'
-                else:
-                    cur_valid = '5'
-            for key, value in known_segments.items():
-                for char in cur_mapping[value][0]:
-                    if char not in output:
-                        # print(f"{output} was excluded by {value} ({cur_mapping[value][0]}), adding previously valid '{cur_valid}'")
-                        if cur_valid != '6' and cur_valid != '5' and cur_valid != '2':
-                            if previous_value == 7:
-                                if len(output) == 6:
-                                    cur_valid = '0'
-                                elif len(output) == 5:
-                                    cur_valid = '3'
-                            elif previous_value == 4:
-                                cur_valid = '9'
+            actual_out += str(intended_mapping_rev["".join(sorted(out))])
 
-                            # possible_mappings
-                            # 7: {5: [3, 9], 6: [0]},
-                            # 4: {5: [9], 6: []},
-
-                        cur_output += str(cur_valid[0])
-                        found_flag = True
-                        break
-                else:
-                    # print(f"{output} was not excluded by {value}")
-                    previous_value = value
-                    cur_valid = str(value)
-                    continue
-                if found_flag:
-                    break
-
-        # print(cur_output)
-        print(cur_mapping)
-        print(signals, outputs, cur_output)
-        all_outputs.append(int(cur_output))
+        all_outputs.append(int(actual_out))
 
     return sum(all_outputs)
 
@@ -154,27 +138,30 @@ def main():
     bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cdgba cbgef
     egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
     gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
-    """
+    """  # pt1: 26; pt2: 61229
 
     sample_input_2 = r"""
     acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf
     """
 
-    # To run against sample input
-    my_tmp = sample_input_2.strip().split('\n')
-    samp_input = list()
-    for line in my_tmp:
-        samp_input.append([[signal for signal in line.split()[:10]],
-                           [output for output in line.split()[11:]]]
-                          )
+    sample_input_3 = r"""
+    fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega | efabcd cedba gadfec cb
+"""
 
-    print(f"The  (part one) is: {part_one(samp_input)}.")
-    print(f"The  (part two) is: {part_two(samp_input)}.")
+    # To run against sample input
+    # my_tmp = sample_input_2.strip().split('\n')
+    # samp_input = list()
+    # for line in my_tmp:
+    #     samp_input.append([[signal for signal in line.split()[:10]],
+    #                        [output for output in line.split()[11:]]]
+    #                       )
+    #
+    # print(f"The  (part one) is: {part_one(samp_input)}.")
+    # print(f"The  (part two) is: {part_two(samp_input)}.")
     print()
-    # my_input = the_setup()
-    # print(f"The  (part one) is: {part_one(my_input)}.")
-    # print(f"The  (part two) is: {part_two(my_input)}.")
-    # (You guessed 983593.) ## too high
+    my_input = the_setup()
+    print(f"The  (part one) is: {part_one(my_input)}.")
+    print(f"The  (part two) is: {part_two(my_input)}.")
 
 
 if __name__ == "__main__":
