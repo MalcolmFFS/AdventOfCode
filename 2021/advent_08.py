@@ -4,6 +4,12 @@
 # The  (part one) is: 245.
 # The  (part two) is: 983026.
 
+# advent_08.py
+# part_one():
+# real    0m0.021s
+# part_two()
+# real    0m0.024s
+
 
 def the_setup() -> list:
     the_input = list()
