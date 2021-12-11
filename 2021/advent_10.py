@@ -20,7 +20,7 @@ def the_setup() -> list:
     return the_input
 
 
-def part_one(the_input):
+def part_one(the_input: list) -> int:
     pairs = {'(': ')', '[': ']', '{': '}', '<': '>'}
     scores = {')': 3, ']': 57, '}': 1197, '>': 25137}
     corruptions = list()
@@ -47,7 +47,7 @@ def part_one(the_input):
     return score
 
 
-def part_two(the_input):
+def part_two(the_input: list) -> int:
     pairs = {'(': ')', '[': ']', '{': '}', '<': '>'}
     scores = {')': 1, ']': 2, '}': 3, '>': 4}
     incompletes = list()

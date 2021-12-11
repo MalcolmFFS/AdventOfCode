@@ -18,7 +18,7 @@ def the_setup() -> list:
     return the_input
 
 
-def explode(the_input, point):
+def explode(the_input: list, point: tuple) -> int:
     explosions = 1
     not_top_row = point[0] != 0
     not_right_col = point[1] != len(the_input[point[0]]) - 1
@@ -67,7 +67,7 @@ def explode(the_input, point):
     return explosions
 
 
-def part_one(the_input):
+def part_one(the_input: list) -> int:
     total_explosions = 0
     copy_input = [[c for c in line] for line in the_input]
     for _ in range(100):
@@ -85,7 +85,7 @@ def part_one(the_input):
     return total_explosions
 
 
-def part_two(the_input):
+def part_two(the_input: list) -> int:
     counter = 0
     while True:
         counter += 1
