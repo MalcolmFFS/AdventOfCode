@@ -6,46 +6,47 @@ from datetime import datetime, timedelta
 
 
 def create_advent_file_with_template(year, day):
-    advent_template = f"""#!/usr/bin/env python3
+    advent_template = f'''#!/usr/bin/env python3
 
-    # Output:
-    #
-
-
-    def the_setup() -> list:
-        the_input = list()
-        with open('input_{day}.txt') as f_object:
-            for line in f_object:
-                the_input.append(line.strip())
-
-            # tmp = f_object.read().split('\\n\\n')
-            # a = tmp[0]
-            # the_input = [int(i) for i in tmp]
-
-        return the_input
+# Output:
+#
 
 
-    def part_one(the_input):
-        pass
+def the_setup() -> list:
+    the_input = list()
+    with open('input_{day}.txt') as f_object:
+        for line in f_object:
+            the_input.append(line.strip())
+
+        # tmp = f_object.read().split('\\n\\n')
+        # a = tmp[0]
+        # the_input = [int(i) for i in tmp]
+
+    return the_input
 
 
-    def part_two(the_input):
-        pass
+def part_one(the_input):
+    pass
 
 
-    def main():
+def part_two(the_input):
+    pass
 
 
-        # To run against sample input
-        # my_input = [i for i in sample_input.strip().split('\\n')]
+def main():
+    sample_input = """
+    """
 
-        my_input = the_setup()
-        print(f"The  (part one) is: {{part_one(my_input)}}.")
-        print(f"The  (part two) is: {{part_two(my_input)}}.")
+    # To run against sample input
+    # my_input = [i for i in sample_input.strip().split('\\n')]
+
+    my_input = the_setup()
+    print(f"The  (part one) is: {{part_one(my_input)}}.")
+    print(f"The  (part two) is: {{part_two(my_input)}}.")
 
 
-    if __name__ == "__main__":
-        main()"""
+if __name__ == "__main__":
+    main()'''
 
     advent_file_path = f"{year}\\advent_{day}.py"
     if not os.path.exists(advent_file_path):
