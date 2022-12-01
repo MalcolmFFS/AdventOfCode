@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 # Output:
-#
-
+# The most calories carried by a single elf (part one) is: 71502.
+# The top 3 elves together total calories (part two) is: 208191.
 
 def the_setup() -> list:
     # the_input = list()
