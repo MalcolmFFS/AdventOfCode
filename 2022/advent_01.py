@@ -4,55 +4,44 @@
 #
 
 
-def the_setup() -> dict:
+def the_setup() -> list:
     # the_input = list()
     with open('input_01.txt') as f_object:
-        the_input = f_object.read()
+        the_input = f_object.read().split('\n\n')
+        the_input = [[int(food) for food in elf.split()] for elf in the_input]
+        the_input = [sum(elf) for elf in the_input]
 
-    food_dict = dict()
-    for elf, elf_food in enumerate(the_input.split('\n\n')):
-        food_dict[elf] = [int(food) for food in elf_food.split('\n')]
-
-    return food_dict
+    return the_input
 
 
 def part_one(the_input):
-    return max(sum(elf_food) for elf_food in the_input.values())
+    return max(the_input)
 
 
 def part_two(the_input):
-    highest = list()
-
-    all_elves_max = [sum(elf_food) for elf_food in the_input.values()]
-
-    highest.append(max(all_elves_max))
-    all_elves_max.remove(max(all_elves_max))
-    highest.append(max(all_elves_max))
-    all_elves_max.remove(max(all_elves_max))
-    highest.append(max(all_elves_max))
-    all_elves_max.remove(max(all_elves_max))
-
-    return sum(highest)
+    return sum(sorted(the_input)[-3:])
 
 
 def main():
-    #     sample_input = """1000
-    # 2000
-    # 3000
-    #
-    # 4000
-    #
-    # 5000
-    # 6000
-    #
-    # 7000
-    # 8000
-    # 9000
-    #
-    # 10000"""
+    sample_input = """1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000"""
 
     # To run against sample input
-    # my_input = [i for i in sample_input.strip().split('\n')]
+    # my_input = sample_input.split('\n\n')
+    # my_input = [[int(food) for food in elf.split()] for elf in my_input]
+    # my_input = [sum(elf) for elf in my_input]
 
     my_input = the_setup()
     print(f"The most calories carried by a single elf (part one) is: {part_one(my_input)}.")
