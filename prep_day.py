@@ -11,7 +11,6 @@ def create_advent_file_with_template(year, day):
 # Output:
 #
 
-
 def the_setup() -> list:
     the_input = list()
     with open('input_{day}.txt') as f_object:
