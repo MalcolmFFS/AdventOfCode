@@ -24,11 +24,11 @@ def the_setup() -> list:
     return the_input
 
 
-def part_one(the_input):
+def part_one(the_input: list) -> int:
     pass
 
 
-def part_two(the_input):
+def part_two(the_input: list) -> int:
     pass
 
 
