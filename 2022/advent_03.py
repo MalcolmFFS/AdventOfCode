@@ -16,30 +16,30 @@ def the_setup() -> list:
 
 
 def part_one(the_input: list, priority: dict) -> int:
-    shared_types = str()
+    running_sum = 0
 
     for rucksack in the_input:
         half = len(rucksack)//2
         pocket_1, pocket_2 = rucksack[:half], rucksack[half:]
         for item in pocket_1:
             if item in pocket_2:
-                shared_types += item
+                running_sum += priority[item]
                 break
 
-    return sum([priority[i] for i in shared_types])
+    return running_sum
 
 
 def part_two(the_input: list, priority: dict) -> int:
-    uniques = str()
+    running_sum = 0
 
     groups = [the_input[i:i+3] for i in range(len(the_input)) if i % 3 == 0]
     for group in groups:
         for char in group[0]:
             if char in group[1] and char in group[2]:
-                uniques += char
+                running_sum += priority[char]
                 break
 
-    return sum([priority[i] for i in uniques])
+    return running_sum
 
 
 def main():
