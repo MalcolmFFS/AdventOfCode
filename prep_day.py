@@ -9,17 +9,13 @@ def create_advent_file_with_template(year, day):
     advent_template = f'''#!/usr/bin/env python3
 
 # Output:
-#
+# 
 
-def the_setup() -> list:
+def the_setup(data: str) -> list:
     the_input = list()
-    with open('input_{day}.txt') as f_object:
-        for line in f_object:
-            the_input.append(line.strip())
+    for line in data.split('\n'):
 
-        # tmp = f_object.read().split('\\n\\n')
-        # a = tmp[0]
-        # the_input = [int(i) for i in tmp]
+        # tmp = f_ob
 
     return the_input
 
@@ -33,13 +29,17 @@ def part_two(the_input: list) -> int:
 
 
 def main():
-    sample_input = """
-    """
+    with open('input_{day}.txt') as f_object:
+        input_{day} = f_object.read().strip()
+    
+    sample_input = """"""
 
     # To run against sample input
-    # my_input = [i for i in sample_input.strip().split('\\n')]
+    # my_input = the_setup(sample_input)
 
-    my_input = the_setup()
+    # To run against real input
+    my_input = the_setup(input_{day})
+    
     print(f"The  (part one) is: {{part_one(my_input)}}.")
     print(f"The  (part two) is: {{part_two(my_input)}}.")
 
