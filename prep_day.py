@@ -74,10 +74,10 @@ if __name__ == "__main__":
     tomorrow = today + timedelta(1)
     cur_year = tomorrow.year
 
-    if tomorrow <= 25:
+    if tomorrow.day <= 25:
         print(f"Today is {today.day}, prepping day {tomorrow.day}...")
     else:
-        print(f"Tomorrow is {tomorrow}, which is above 25. AoC is over. Good bye!")
+        print(f"Tomorrow is {tomorrow.day}, which is above 25. AoC is over. Good bye!")
         exit()
 
     if not os.path.exists(f"{cur_year}"):
