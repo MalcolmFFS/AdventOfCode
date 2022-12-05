@@ -6,8 +6,8 @@
 
 def the_setup(data: str) -> list:
     the_input = list()
-
     stacks = list()
+
     for i in data.split('\n\n')[0].split('\n'):
         stacks.append([i[x:x + 4] for x in range(0, len(i), 4)])
 
@@ -68,6 +68,7 @@ def main():
     with open('input_05.txt') as f_object:
         input_05 = f_object.read().strip()
 
+    # Since formatting gets lost when in a string. Visual comment.
     #     [D]
     # [N] [C]
     # [Z] [M] [P]
@@ -77,7 +78,6 @@ def main():
     # move 3 from 1 to 3
     # move 2 from 2 to 1
     # move 1 from 1 to 2
-
     sample_input = """    [D]    
 [N] [C]    
 [Z] [M] [P]
