@@ -13,9 +13,8 @@ def create_advent_file_with_template(year, day):
 
 def the_setup(data: str) -> list:
     the_input = list()
-    for line in data.split('\n'):
-
-        # tmp = f_ob
+    for line in data.split('\\n'):
+        pass
 
     return the_input
 
