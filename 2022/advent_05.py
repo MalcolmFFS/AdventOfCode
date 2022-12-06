@@ -66,7 +66,7 @@ def part_two(the_input: list) -> str:
 
 def main():
     with open('input_05.txt') as f_object:
-        input_05 = f_object.read().strip()
+        input_05 = f_object.read().strip('\n')
 
     # Since formatting gets lost when in a string. Visual comment.
     #     [D]
