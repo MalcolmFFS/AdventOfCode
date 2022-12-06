@@ -39,7 +39,9 @@ def part_two(the_input: list) -> int:
 def main():
     with open('input_06.txt') as f_object:
         input_06 = f_object.read().strip()
-    
+
+    # Expected output part 1: 7
+    # Expected output part 2: 19
     sample_input = """mjqjpqmgbljsphdztnvjfqwrcgsmlb"""
 
     # To run against sample input

@@ -31,6 +31,8 @@ def main():
     with open('input_{day}.txt') as f_object:
         input_{day} = f_object.read().strip()
     
+    # Expected output part 1: 
+    # Expected output part 2: 
     sample_input = """"""
 
     # To run against sample input
