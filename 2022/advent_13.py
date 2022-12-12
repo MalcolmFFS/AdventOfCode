@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Output:
-#
+# 
 
 def the_setup(data: str) -> list:
     the_input = list()
@@ -20,19 +20,19 @@ def part_two(the_input: list) -> int:
 
 
 def main():
-    with open('input_XX.txt') as f_object:
-        input_XX = f_object.read().strip()
-
-    # Expected output part 1:
-    # Expected output part 2:
+    with open('input_13.txt') as f_object:
+        input_13 = f_object.read().strip()
+    
+    # Expected output part 1: 
+    # Expected output part 2: 
     sample_input = """"""
 
     # To run against sample input
     # my_input = the_setup(sample_input)
 
     # To run against real input
-    my_input = the_setup(input_XX)
-
+    my_input = the_setup(input_13)
+    
     print(f"The  (part one) is: {part_one(my_input)}.")
     print(f"The  (part two) is: {part_two(my_input)}.")
 

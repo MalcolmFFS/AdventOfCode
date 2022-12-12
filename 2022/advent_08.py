@@ -83,7 +83,7 @@ def part_two(the_input: list) -> int:
         if r_idx == 0 or c_idx == 0:
             continue
         if r_idx == len(the_input) or c_idx == len(the_input[0]):
-            break
+            continue
 
         # Look up:
         up_scenic_score = 0
@@ -112,7 +112,7 @@ def part_two(the_input: list) -> int:
         # Look right:
         right_scenic_score = 0
         test_c_idx = c_idx + 1
-        while test_c_idx <= len(row) - 1:
+        while test_c_idx <= len(the_input[0]) - 1:
             to_test = the_input[r_idx][test_c_idx]
             if tree_height > to_test:
                 right_scenic_score += 1

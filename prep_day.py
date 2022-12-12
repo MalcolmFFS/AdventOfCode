@@ -71,21 +71,32 @@ def create_input_file(year, day):
 
 
 if __name__ == "__main__":
-    today = datetime.now()
-    tomorrow = today + timedelta(1)
-    cur_year = tomorrow.year
+    # today = datetime.now()
+    # tomorrow = today + timedelta(1)
+    # cur_year = tomorrow.year
+    #
+    # if tomorrow.day <= 25:
+    #     print(f"Today is {today.day}, prepping day {tomorrow.day}...")
+    # else:
+    #     print(f"Tomorrow is {tomorrow.day}, which is above 25. AoC is over. Good bye!")
+    #     exit()
 
-    if tomorrow.day <= 25:
-        print(f"Today is {today.day}, prepping day {tomorrow.day}...")
+    while True:
+        try:
+            year = input("What year are the prepping in?\n-> ")
+            year = int(year)
+            day = input("What day are the prepping?\n-> ")
+            day = int(day)
+            break
+        except ValueError:
+            print("We need an int for both year and day, try again...")
+            continue
+
+    if not os.path.exists(f"{year}"):
+        os.makedirs(f"{year}")
+        print(f"Created './{year}/' successfully!")
     else:
-        print(f"Tomorrow is {tomorrow.day}, which is above 25. AoC is over. Good bye!")
-        exit()
+        print(f"{year} directory exists...")
 
-    if not os.path.exists(f"{cur_year}"):
-        os.makedirs(f"{cur_year}")
-        print(f"Created './{cur_year}/' successfully!")
-    else:
-        print(f"{cur_year} directory exists...")
-
-    create_advent_file_with_template(cur_year, tomorrow.strftime("%d"))
-    create_input_file(cur_year, tomorrow.strftime("%d"))
+    create_advent_file_with_template(year, day.strftime("%d"))
+    create_input_file(year, day.strftime("%d"))
