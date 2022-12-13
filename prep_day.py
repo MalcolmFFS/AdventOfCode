@@ -87,6 +87,7 @@ if __name__ == "__main__":
             year = int(year)
             day = input("What day are the prepping?\n-> ")
             day = int(day)
+            day = datetime.strptime(str(day), "%d")
             break
         except ValueError:
             print("We need an int for both year and day, try again...")
