@@ -3,9 +3,12 @@
 # Output:
 #
 
-def the_setup(data: str) -> list:
+def the_setup() -> list:
+    with open('input_XX.txt') as f_object:
+        my_input = f_object.read().strip()
+
     the_input = list()
-    for line in data.split('\n'):
+    for line in my_input.split('\n'):
         pass
 
     return the_input
@@ -20,9 +23,6 @@ def part_two(the_input: list) -> int:
 
 
 def main():
-    with open('input_XX.txt') as f_object:
-        input_XX = f_object.read().strip()
-
     # Expected output part 1:
     # Expected output part 2:
     sample_input = """"""

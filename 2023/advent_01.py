@@ -5,9 +5,12 @@ import re
 # Output:
 # 
 
-def the_setup(data: str) -> list:
+def the_setup() -> list:
+    with open('input_01.txt') as f_object:
+        my_input = f_object.read().strip()
+
     the_input = list()
-    for line in data.split('\n'):
+    for line in my_input.split('\n'):
         the_input.append(line)
 
     return the_input
@@ -81,9 +84,6 @@ def part_two(the_input: list) -> int:
 
 
 def main():
-    with open('input_01.txt') as f_object:
-        input_01 = f_object.read().strip()
-    
     # Expected output part 1: 
     # Expected output part 2: 
     sample_input = """two1nine
@@ -98,7 +98,7 @@ zoneight234
     # my_input = the_setup(sample_input)
 
     # To run against real input
-    my_input = the_setup(input_01)
+    my_input = the_setup()
     
     print(f"The Sum of first and last digits (part one) is: {part_one(my_input[:])}.")
     print(f"The Sum of first and last numbers (part two) is: {part_two(my_input[:])}.")
