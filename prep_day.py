@@ -48,7 +48,7 @@ def main():
 if __name__ == "__main__":
     main()'''
 
-    advent_file_path = f"{year}\\advent_{day}.py"
+    advent_file_path = f"{year}/advent_{day}.py"
     if not os.path.exists(advent_file_path):
         print(f"{advent_file_path} doesn't exist, creating...")
         with open(advent_file_path, 'w') as f_object:
@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
 
 def create_input_file(year, day):
-    input_file_path = f"{year}\\input_{day}.txt"
+    input_file_path = f"{year}/input_{day}.txt"
     if not os.path.exists(f"{input_file_path}"):
         print(f"{input_file_path} doesn't exist, creating...")
         with open(input_file_path, 'w') as _:
