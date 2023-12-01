@@ -100,8 +100,8 @@ zoneight234
     # To run against real input
     my_input = the_setup(input_01)
     
-    print(f"The  (part one) is: {part_one(my_input[:])}.")
-    print(f"The  (part two) is: {part_two(my_input[:])}.")
+    print(f"The Sum of first and last digits (part one) is: {part_one(my_input[:])}.")
+    print(f"The Sum of first and last numbers (part two) is: {part_two(my_input[:])}.")
 
 
 if __name__ == "__main__":
