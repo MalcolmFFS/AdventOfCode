@@ -31,7 +31,7 @@ def main():
     # my_input = the_setup(sample_input)
 
     # To run against real input
-    my_input = the_setup(input_XX)
+    my_input = the_setup()
 
     print(f"The  (part one) is: {part_one(my_input)}.")
     print(f"The  (part two) is: {part_two(my_input)}.")
