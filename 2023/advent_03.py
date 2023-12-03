@@ -21,9 +21,12 @@ def part_one(the_input: list) -> int:
         
         num_coords = (r, c)
         num = the_input[r][c]
-        while the_input[r][c + 1].isdigit():
-            c += 1
-            num += the_input[r][c]
+        try:
+            while the_input[r][c + 1].isdigit():
+                c += 1
+                num += the_input[r][c]
+        except IndexError:
+            pass
         
         return int(num), num_coords
 
@@ -107,9 +110,12 @@ def part_two(the_input: list) -> int:
         
         num_coords = (r, c)
         num = the_input[r][c]
-        while the_input[r][c + 1].isdigit():
-            c += 1
-            num += the_input[r][c]
+        try:
+            while the_input[r][c + 1].isdigit():
+                c += 1
+                num += the_input[r][c]
+        except IndexError:
+            pass
         
         return int(num), num_coords
 
@@ -117,7 +123,7 @@ def part_two(the_input: list) -> int:
     all_n_coords = list()
     for r_idx, row in enumerate(the_input):
         for c_idx, col in enumerate(row):
-            if col == '*': # Is a symbol
+            if col == '*': # Might be gear
                 adjacent_nums = 0
                 nums = list()
                 not_top_row = r_idx > 0
