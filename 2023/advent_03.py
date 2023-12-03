@@ -13,11 +13,9 @@ def the_setup(data: str) -> list:
 
 def part_one(the_input: list) -> int:
     def track_number(r, c):
-        cur_place = the_input[r][c]
         while True:
             if the_input[r][c - 1].isdigit():
                 c -= 1
-                cur_place = the_input[r][c]
             else:
                 break
         
@@ -101,11 +99,9 @@ def part_one(the_input: list) -> int:
 
 def part_two(the_input: list) -> int:
     def track_number(r, c):
-        cur_place = the_input[r][c]
         while True:
             if the_input[r][c - 1].isdigit():
                 c -= 1
-                cur_place = the_input[r][c]
             else:
                 break
         
