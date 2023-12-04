@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 # Output:
-# 
+# The sum of games possible with 12R, 13G and 14B cubes (part one) is: 2449.
+# The power of the minimum possible cubes per game (part two) is: 63981.
 
-def the_setup(data: list) -> dict:
+def the_setup(data: str) -> dict:
     the_input = dict()
     for line in data.split('\n'):
         game, plays = line.split(":")
@@ -79,8 +80,8 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"""
     # To run against real input
     my_input = the_setup(my_input)
     
-    print(f"The  (part one) is: {part_one(my_input)}.")
-    print(f"The  (part two) is: {part_two(my_input)}.")
+    print(f"The sum of games possible with 12R, 13G and 14B cubes (part one) is: {part_one(my_input)}.")
+    print(f"The power of the minimum possible cubes per game (part two) is: {part_two(my_input)}.")
 
 
 if __name__ == "__main__":

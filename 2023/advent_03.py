@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 # Output:
-# 
+# The sum of all part numbers in the engine schematic (part one) is: 556057.
+# The sum of all gear ratios in the engine schematic (part two) is: 82824352.
 
 def the_setup(data: str) -> list:
     the_input = list()
@@ -224,8 +225,8 @@ def main():
     # To run against real input
     my_input = the_setup(input_03)
     
-    print(f"The  (part one) is: {part_one(my_input)}.")
-    print(f"The  (part two) is: {part_two(my_input)}.")
+    print(f"The sum of all part numbers in the engine schematic (part one) is: {part_one(my_input)}.")
+    print(f"The sum of all gear ratios in the engine schematic (part two) is: {part_two(my_input)}.")
 
 
 if __name__ == "__main__":

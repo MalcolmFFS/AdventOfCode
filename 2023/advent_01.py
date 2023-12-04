@@ -3,7 +3,8 @@
 import re
 
 # Output:
-# 
+# The Sum of first and last digits (part one) is: 53386.
+# The Sum of first and last numbers (part two) is: 53312.
 
 def the_setup() -> list:
     with open('input_01.txt') as f_object:
